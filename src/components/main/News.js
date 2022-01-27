@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import Newitem from './Newitem.js';
 
-
+let removeActiveClass = () => 
+{
+  document.querySelectorAll(`[href^='/']`).forEach(element => 
+    {
+      element.classList.remove("active");
+    })
+}
 
 export default class News extends Component {
   constructor(props) {
@@ -13,6 +19,27 @@ export default class News extends Component {
     let response = await fetch(this.props.apiUrl);
     let data = await response.json();
     this.setState({articles:data.articles});
+    if(window.location.pathname==='/')
+    {
+      removeActiveClass();
+      document.querySelector('#home').classList.add('active');
+    }
+    else if(window.location.pathname==='/international')
+    {
+      removeActiveClass();
+      document.querySelector('[href="/international"]').classList.add('active');
+    }
+    else if(window.location.pathname==='/crypto')
+    {
+
+      removeActiveClass();
+      document.querySelector('[href="/crypto"]').classList.add('active');
+    }
+    else if(window.location.pathname==='/about')
+    {
+      removeActiveClass();
+      document.querySelector('[href="/about"]').classList.add('active');
+    }
   }
   render() {
     return (
